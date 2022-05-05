@@ -1,4 +1,4 @@
-# Microgateway Template
+# Data Microgateway
 
 A starter template to help teams create their own microgateway
 
