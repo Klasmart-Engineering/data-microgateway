@@ -9,7 +9,7 @@ jobs:
     uses: KL-Engineering/central-microgateway-configuration/.github/workflows/validate-configuration.yaml@main
     secrets:
       github-repo-token: ${{ secrets.GATEWAY_CONFIG_SYNC_BOT }}
-      github-package-token: ${{ secrets.GH_PAT }}
+      github-package-token: ${{ secrets.GATEWAY_CONFIG_SYNC_BOT }}
 
   build-image:
     name: Build and push image
@@ -17,4 +17,4 @@ jobs:
     uses: KL-Engineering/central-microgateway-configuration/.github/workflows/build-and-push-image.yaml@main
     secrets:
       github-repo-token: ${{ secrets.GATEWAY_CONFIG_SYNC_BOT }}
-      github-package-token: ${{ secrets.GH_PAT }}
+      github-package-token: ${{ secrets.GATEWAY_CONFIG_SYNC_BOT }}
