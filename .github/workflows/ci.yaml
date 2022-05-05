@@ -3,6 +3,11 @@ name: Validate & build microgateway image
 on:
   push:
 
+permissions:
+  id-token: write
+  contents: read # This is required for actions/checkout
+  packages: read
+
 jobs:
   test-configuration:
     name: Test the KrakenD configuration
