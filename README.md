@@ -1,5 +1,7 @@
 # Data Microgateway
 
+Serves all public APIs exposed by the data science team
+
 ## Important notes
 
 The [API Management team](https://calmisland.atlassian.net/wiki/spaces/AM/overview?homepageId=2619113904) have done their best to expose a number of features to support teams in configuring and managing their gateways. This includes having syncing mechanisms that will automatically raise PRs whenever configuration _(centrally managed)_ or plugins are updated.
