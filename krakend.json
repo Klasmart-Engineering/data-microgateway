@@ -32,9 +32,52 @@
   "timeout": "3000ms",
   "cache_ttl": "300s",
   "output_encoding": "json",
-  "name": "<product name>-microgateway",
+  "name": "data-microgateway",
   "port": 8080,
   "endpoints": [
-    {{ template "example.tmpl" . }}
+    {
+      "endpoint": "/adaptive-review/{requestId}",
+      "method": "GET",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/",
+          "host": ["api.kidsloop.live"],
+          "encoding": "json",
+          "extra_config" : {
+            "backend/lambda": {
+              "function_name":  {{ marshal .lambda.adaptive_review }},
+              "region": "{{ env "AWS_REGION" }}",
+              "max_retries": 2
+            }
+          }
+        }
+      ],
+      "extra_config": {
+        {{ template "jwks-validation-plugin.tmpl" .auth }}
+      }
+    },
+    {
+      "endpoint": "/adaptive-grouping/{requestId}",
+      "method": "GET",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/",
+          "host": ["api.kidsloop.live"],
+          "encoding": "json",
+          "extra_config" : {
+            "backend/lambda": {
+              "function_name":  {{ marshal .lambda.adaptive_grouping }},
+              "region": "{{ env "AWS_REGION" }}",
+              "max_retries": 2
+            }
+          }
+        }
+      ],
+      "extra_config": {
+        {{ template "jwks-validation-plugin.tmpl" .auth }}
+      }
+    }
   ]
 }
