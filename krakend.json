@@ -36,47 +36,26 @@
   "port": 8080,
   "endpoints": [
     {
-      "endpoint": "/adaptive-review/{requestId}",
-      "method": "GET",
-      "output_encoding": "json",
+      "endpoint": "/stubbed",
+      "headers_to_pass": ["Content-Length"],
       "backend": [
         {
-          "url_pattern": "/",
-          "host": ["api.kidsloop.live"],
-          "encoding": "json",
-          "extra_config" : {
-            "backend/lambda": {
-              "function_name":  {{ marshal .lambda.adaptive_review }},
-              "region": "{{ env "AWS_REGION" }}",
-              "max_retries": 2
-            }
-          }
+          "host": ["http://ignore.this.endpoint"],
+          "url_pattern": ""
         }
       ],
       "extra_config": {
-        {{ template "jwks-validation-plugin.tmpl" .auth }}
-      }
-    },
-    {
-      "endpoint": "/adaptive-grouping/{requestId}",
-      "method": "GET",
-      "output_encoding": "json",
-      "backend": [
-        {
-          "url_pattern": "/",
-          "host": ["api.kidsloop.live"],
-          "encoding": "json",
-          "extra_config" : {
-            "backend/lambda": {
-              "function_name":  {{ marshal .lambda.adaptive_grouping }},
-              "region": "{{ env "AWS_REGION" }}",
-              "max_retries": 2
+        "github.com/devopsfaith/krakend/proxy": {
+          "static": {
+            "strategy": "always",
+            "data": {
+              "i-am-stubbed": {
+                  "id": 42,
+                  "bar": "foobar"
+              }
             }
           }
         }
-      ],
-      "extra_config": {
-        {{ template "jwks-validation-plugin.tmpl" .auth }}
       }
     }
   ]
